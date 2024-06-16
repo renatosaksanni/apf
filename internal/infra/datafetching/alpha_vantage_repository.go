@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/renatosaksanni/apf/internal/domain/datafetching"
 )
@@ -29,10 +30,26 @@ func (r *AlphaVantageRepository) FetchData(symbol string) ([]datafetching.Data, 
 		return nil, err
 	}
 
+	timeSeries, ok := result["Time Series (1min)"].(map[string]interface{})
+	if !ok {
+		return nil, fmt.Errorf("unexpected data format")
+	}
+
 	var data []datafetching.Data
-	for date, value := range result["Time Series (1min)"].(map[string]interface{}) {
-		transactions := value.(map[string]interface{})["4. close"].(float64)
-		data = append(data, datafetching.Data{Date: date, Transactions: transactions})
+	for date, value := range timeSeries {
+		valueMap, ok := value.(map[string]interface{})
+		if !ok {
+			return nil, fmt.Errorf("unexpected data format for value map")
+		}
+		closeValueStr, ok := valueMap["4. close"].(string)
+		if !ok {
+			return nil, fmt.Errorf("unexpected data format for close value")
+		}
+		closeValue, err := strconv.ParseFloat(closeValueStr, 64)
+		if err != nil {
+			return nil, fmt.Errorf("error parsing close value: %v", err)
+		}
+		data = append(data, datafetching.Data{Date: date, Transactions: closeValue})
 	}
 	return data, nil
 }
