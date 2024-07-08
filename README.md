@@ -1,7 +1,7 @@
 [![GoDoc](https://godoc.org/github.com/renatosaksanni/apf?status.svg)](https://godoc.org/github.com/renatosaksanni/apf)
 [![codecov](https://codecov.io/gh/renatosaksanni/apf/branch/main/graph/badge.svg)](https://codecov.io/gh/renatosaksanni/apf)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/renatosaksanni/apf/ci.yml?branch=main)
-![Go Report Card](https://goreportcard.com/badge/github.com/renatosaksanni/apf)
+[![Go Report Card](https://goreportcard.com/badge/github.com/renatosaksanni/apf)](https://goreportcard.com/report/github.com/renatosaksanni/apf)
 ![License](https://img.shields.io/github/license/renatosaksanni/apf.svg)
 ![Issues](https://img.shields.io/github/issues/renatosaksanni/apf.svg)
 
